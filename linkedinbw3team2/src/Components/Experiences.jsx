@@ -1,34 +1,11 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Experiences() {
+  const [experiences, setExperiences] = useState([]);
+
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA3N2UzZGQ0NTE4MTAwMTVjZTgzZGQiLCJpYXQiOjE3NDUzMjE1MzMsImV4cCI6MTc0NjUzMTEzM30.LTwYloXHYIwB75XWa1MVZmD9zX-NUBQDIp9WSrB1Gmc";
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const profileResponse = await fetch(
-          "https://striveschool-api.herokuapp.com/api/profile/me",
-          {
-            headers: {
-              Authorization: apiKey,
-            },
-          }
-        );
-
-        if (!profileResponse.ok)
-          throw new Error("Errore nel recupero del profilo");
-
-        const profileData = await profileResponse.json();
-        console.log("Dati profilo:", profileData);
-      } catch (error) {
-        console.error("Errore:", error);
-      }
-    };
-
-    fetchUser();
-  }, []);
 
   const userId = "68077e3dd451810015ce83dd";
 
@@ -44,11 +21,12 @@ function Experiences() {
           }
         );
 
-        if (!response.ok)
+        if (!response.ok) {
           throw new Error("Errore nel recupero delle esperienze");
+        }
 
         const expData = await response.json();
-        console.log("Dati esperienze:", expData);
+        setExperiences(expData);
       } catch (error) {
         console.error("Errore:", error);
       }
@@ -57,44 +35,50 @@ function Experiences() {
     fetchExperiences();
   }, []);
 
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "Presente";
+    const options = { year: "numeric", month: "short" };
+    return new Date(dateStr).toLocaleDateString("it-IT", options);
+  };
+
   return (
     <Container className='border rounded-3 m-3 p-3'>
       <Row className='mb-3'>
         <Col>
-          <h4 className=''>Esperienza</h4>
+          <h4>Esperienza</h4>
         </Col>
       </Row>
 
-      <Row className='align-items-top'>
-        <Col xs={1} md={1}>
-          <img
-            src='https://static.vecteezy.com/ti/vettori-gratis/p1/20502973-bentley-marca-logo-simbolo-con-nome-bianca-design-britannico-macchine-automobile-vettore-illustrazione-con-nero-sfondo-gratuito-vettoriale.jpg'
-            alt='Logo Bentley'
-            height={50}
-            className='p-0 m-0'
-          />
-        </Col>
-        <Col>
-          <p className='p-0 m-0 fw-bold' style={{ fontSize: "0.9em" }}>
-            Stagista
-          </p>
-          <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
-            Bentley Motors Ltd
-          </p>
-          <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
-            lug 2012 - lug 2012 | 1 mese
-          </p>
-          <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
-            Crewe, Regno Unito
-          </p>
-          <br />
-          <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
-            Modellatore all’interno di un team di lavoro finalizzato alla
-            preparazione di un prototipo da esibire al Salone Internazionale
-            dell’automobile di Ginevra.
-          </p>
-        </Col>
-      </Row>
+      {experiences.map((exp) => (
+        <Row className='align-items-top mb-3' key={exp._id}>
+          <Col xs={1} md={1}>
+            <img
+              src={exp.image || "https://via.placeholder.com/50"}
+              alt={`Logo ${exp.company}`}
+              height={50}
+              className='p-0 m-0'
+            />
+          </Col>
+          <Col>
+            <p className='p-0 m-0 fw-bold' style={{ fontSize: "0.9em" }}>
+              {exp.role}
+            </p>
+            <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
+              {exp.company}
+            </p>
+            <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
+              {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
+            </p>
+            <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
+              {exp.area}
+            </p>
+            <br />
+            <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
+              {exp.description}
+            </p>
+          </Col>
+        </Row>
+      ))}
     </Container>
   );
 }
