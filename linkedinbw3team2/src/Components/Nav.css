@@ -1,4 +1,4 @@
-/* Stile per la linea verticale */
+/* Divider verticale */
 .vertical-divider {
   width: 1px;
   height: 40px;
@@ -6,59 +6,97 @@
   margin: 0 15px;
 }
 
-/* Stile per il link premium */
+/* Link premium */
 .premium-link small {
   text-decoration: underline;
-  color: #b89f47; /* Colore oro spento */
+  color: #b89f47;
   font-weight: 500;
   cursor: pointer;
 }
 
-/* Hover per premium */
 .premium-link:hover small {
   color: #a2893c;
 }
 
-/* Modifica hover sui nav-link generali */
+/* Hover sui nav-link */
 .navbar-nav .nav-link {
   color: #5f5f5f;
   transition: color 0.2s;
 }
+
 .navbar-nav .nav-link:hover {
   color: #0a66c2;
 }
 
-/* Contenitore per il campo di ricerca */
-.search-container {
-  position: relative;
-}
-
-/* Stile per l'icona di ricerca */
+/* Icona lente dentro il campo di ricerca */
 .search-icon {
   position: absolute;
-  left: 15px; /* Distanza dal bordo sinistro */
-  top: 50%;
-  transform: translateY(-50%); /* Centra verticalmente */
-  color: #888;
-  font-size: 18px; /* Modifica la dimensione dell'icona */
-}
-
-/* Stile per il campo di input */
-.search-input {
-  padding-left: 30px; /* Distanza a sinistra per l'icona */
-  border-radius: 50px;
-}
-/* Aggiungi l'icona di ricerca come background */
-.search-input::before {
-  content: '\1F50D'; /* Unicode per l'icona di ricerca (🔍) */
-  position: absolute;
-  left: 10px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 18px;
-  color: #888; /* Colore dell'icona */
+  color: #888;
+  font-size: 20px;
+  pointer-events: none;
 }
-.search-icon i {
-  font-size: 20px; /* Modifica la dimensione dell'icona */
-  color: #888; /* Cambia il colore dell'icona */
+
+/* Input con padding a sinistra per l’icona */
+.search-input {
+  padding-left: 35px;
+  border-radius: 50px;
+}
+.search-field {
+  max-width: 80%; /* Impostare la larghezza massima al 100% */
+}
+/* Per dispositivi tablet */
+@media (max-width: 768px) {
+  .search-field {
+    max-width: 100%; /* Permette al campo di ricerca di occupare tutta la larghezza disponibile */
+    width: 100%;
+  }
+}
+
+/* Per dispositivi desktop */
+@media (min-width: 992px) {
+  .search-field {
+    max-width: 200px; /* Limita la larghezza per il desktop */
+    width: 100%;
+  }
+}
+/* Quando la barra di ricerca è aperta, nascondi le icone e i testi sui dispositivi mobili */
+@media (max-width: 768px) {
+  .navbar-nav.d-none {
+    display: none !important;
+  }
+}
+
+/* Se la ricerca è chiusa, ripristina la visibilità degli elementi */
+.navbar-nav {
+  display: flex !important; /* Rende visibili gli elementi quando la ricerca è chiusa */
+}
+/* Ridurre la dimensione delle icone su mobile */
+/* Modifica per le icone su mobile */
+/* Default (mobile first) */
+.fs-responsive {
+  font-size: 1rem;
+}
+
+/* Da sm in su (≥576px) */
+@media (min-width: 576px) {
+  .fs-responsive {
+    font-size: 0.5rem;
+  }
+}
+
+/* Da md in su (≥768px) */
+@media (min-width: 768px) {
+  .fs-responsive {
+    font-size: 1.5rem;
+  }
+}
+
+/* Da lg in su (≥992px) */
+@media (min-width: 992px) {
+  .fs-responsive {
+    font-size: 1.75rem;
+  }
 }
