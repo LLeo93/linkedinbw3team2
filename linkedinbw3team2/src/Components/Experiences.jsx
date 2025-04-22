@@ -61,7 +61,7 @@ function Experiences() {
     <Container className='border rounded-3 m-3 p-3'>
       <Row className='mb-3'>
         <Col>
-          <h3 className=''>Esperienza</h3>
+          <h4 className=''>Esperienza</h4>
         </Col>
       </Row>
 
@@ -71,15 +71,24 @@ function Experiences() {
             src='https://static.vecteezy.com/ti/vettori-gratis/p1/20502973-bentley-marca-logo-simbolo-con-nome-bianca-design-britannico-macchine-automobile-vettore-illustrazione-con-nero-sfondo-gratuito-vettoriale.jpg'
             alt='Logo Bentley'
             height={50}
+            className='p-0 m-0'
           />
         </Col>
         <Col>
-          <h4>Stagista</h4>
-          <p>Bentley Motors Ltd</p>
-          <p>lug 2012 - lug 2012 | 1 mese</p>
-          <p>Crewe, Regno Unito</p>
+          <p className='p-0 m-0 fw-bold' style={{ fontSize: "0.9em" }}>
+            Stagista
+          </p>
+          <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
+            Bentley Motors Ltd
+          </p>
+          <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
+            lug 2012 - lug 2012 | 1 mese
+          </p>
+          <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
+            Crewe, Regno Unito
+          </p>
           <br />
-          <p>
+          <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
             Modellatore all’interno di un team di lavoro finalizzato alla
             preparazione di un prototipo da esibire al Salone Internazionale
             dell’automobile di Ginevra.
