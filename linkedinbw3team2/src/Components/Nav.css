@@ -27,3 +27,38 @@
 .navbar-nav .nav-link:hover {
   color: #0a66c2;
 }
+
+/* Contenitore per il campo di ricerca */
+.search-container {
+  position: relative;
+}
+
+/* Stile per l'icona di ricerca */
+.search-icon {
+  position: absolute;
+  left: 15px; /* Distanza dal bordo sinistro */
+  top: 50%;
+  transform: translateY(-50%); /* Centra verticalmente */
+  color: #888;
+  font-size: 18px; /* Modifica la dimensione dell'icona */
+}
+
+/* Stile per il campo di input */
+.search-input {
+  padding-left: 30px; /* Distanza a sinistra per l'icona */
+  border-radius: 50px;
+}
+/* Aggiungi l'icona di ricerca come background */
+.search-input::before {
+  content: '\1F50D'; /* Unicode per l'icona di ricerca (🔍) */
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #888; /* Colore dell'icona */
+}
+.search-icon i {
+  font-size: 20px; /* Modifica la dimensione dell'icona */
+  color: #888; /* Cambia il colore dell'icona */
+}

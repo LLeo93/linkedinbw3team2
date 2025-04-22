@@ -1,6 +1,7 @@
 // Nav.jsx
 import React from 'react';
 import './Nav.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 const Nav = () => {
   return (
@@ -16,11 +17,15 @@ const Nav = () => {
         </a>
 
         <form className="d-none d-md-block mx-3 flex-grow-1">
-          <input
-            className="form-control rounded-pill"
-            type="search"
-            placeholder="Search"
-          />
+          <div className="search-container">
+            <input
+              className="form-control rounded-pill search-input"
+              type="search"
+              placeholder="Cerca"
+            />
+            {/* Icona di ricerca dentro al campo */}
+            <i className="fa fa-search search-icon"></i>
+          </div>
         </form>
 
         <button
