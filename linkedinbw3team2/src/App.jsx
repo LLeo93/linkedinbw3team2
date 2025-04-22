@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { useState } from "react";
+import Experiences from "./Components/Experiences.jsx";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Experiences />
+    </>
+  );
 }
 
 export default App;
