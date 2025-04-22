@@ -5,12 +5,37 @@ function Experiences() {
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA3N2UzZGQ0NTE4MTAwMTVjZTgzZGQiLCJpYXQiOjE3NDUzMjE1MzMsImV4cCI6MTc0NjUzMTEzM30.LTwYloXHYIwB75XWa1MVZmD9zX-NUBQDIp9WSrB1Gmc";
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const profileResponse = await fetch(
+          "https://striveschool-api.herokuapp.com/api/profile/me",
+          {
+            headers: {
+              Authorization: apiKey,
+            },
+          }
+        );
+
+        if (!profileResponse.ok)
+          throw new Error("Errore nel recupero del profilo");
+
+        const profileData = await profileResponse.json();
+        console.log("Dati profilo:", profileData);
+      } catch (error) {
+        console.error("Errore:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   const userId = "68077e3dd451810015ce83dd";
 
   useEffect(() => {
-    const checkAndAddExperience = async () => {
+    const fetchExperiences = async () => {
       try {
-        const checkResponse = await fetch(
+        const response = await fetch(
           `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`,
           {
             headers: {
@@ -19,48 +44,17 @@ function Experiences() {
           }
         );
 
-        if (!checkResponse.ok)
+        if (!response.ok)
           throw new Error("Errore nel recupero delle esperienze");
 
-        const expData = await checkResponse.json();
-        console.log("Esperienze trovate:", expData);
-
-        if (expData.length === 0) {
-          const newExperience = {
-            role: "Freelance Artist",
-            company: "Freelance",
-            startDate: "2023-01-01",
-            endDate: "2024-12-31",
-            description: "Artista freelance, fumettista e illustratrice",
-            area: "Milano",
-          };
-
-          const postResponse = await fetch(
-            `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: apiKey,
-              },
-              body: JSON.stringify(newExperience),
-            }
-          );
-
-          if (postResponse.ok) {
-            console.log("Esperienza aggiunta con successo!");
-          } else {
-            console.error("Errore nell'aggiunta:", await postResponse.text());
-          }
-        } else {
-          console.log("Esperienza già presente, nessuna aggiunta.");
-        }
-      } catch (err) {
-        console.error("Errore:", err);
+        const expData = await response.json();
+        console.log("Dati esperienze:", expData);
+      } catch (error) {
+        console.error("Errore:", error);
       }
     };
 
-    checkAndAddExperience();
+    fetchExperiences();
   }, []);
 
   return (
