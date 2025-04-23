@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import './Nav.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const Nav = () => {
   const [showSearchMobile, setShowSearchMobile] = useState(false);
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
@@ -11,6 +13,22 @@ const Nav = () => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { userId } = useParams(); // se sei in /profile/:userId
+  const loggedUser = useSelector((state) => state.user.data);
+  const profileFromUrl = useSelector((state) => state.profiles.current);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/profile/') && userId) {
+      dispatch(fetchProfileById(userId));
+    }
+  }, [location, userId, dispatch]);
+
+  const userToDisplay =
+    location.pathname.startsWith('/profile/') && userId
+      ? profileFromUrl
+      : loggedUser;
 
   const toggleSearch = () => {
     setShowSearchMobile((prev) => !prev);
@@ -181,7 +199,9 @@ const Nav = () => {
               >
                 <div className="d-flex align-items-center mb-3">
                   <img
-                    src={user?.image}
+                    src={
+                      userToDisplay?.image || 'https://placekitten.com/100/100'
+                    }
                     alt="Avatar"
                     className="rounded-circle me-2"
                     width="48"
@@ -189,7 +209,7 @@ const Nav = () => {
                   />
                   <div>
                     <strong>
-                      {user?.name} {user?.surname}
+                      {userToDisplay?.name} {userToDisplay?.surname}
                     </strong>
                     <div className="text-muted small">{user?.title}</div>
                   </div>
