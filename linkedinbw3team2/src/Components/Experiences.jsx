@@ -4,6 +4,7 @@ import ExpForm from "./FormExp";
 
 function Experiences() {
   const [experiences, setExperiences] = useState([]);
+  const [userId, setUserId] = useState(null);
   const [newExperience, setNewExperience] = useState({
     role: "",
     company: "",
@@ -17,9 +18,35 @@ function Experiences() {
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA3N2UzZGQ0NTE4MTAwMTVjZTgzZGQiLCJpYXQiOjE3NDUzMjE1MzMsImV4cCI6MTc0NjUzMTEzM30.LTwYloXHYIwB75XWa1MVZmD9zX-NUBQDIp9WSrB1Gmc";
 
-  const userId = "68077e3dd451810015ce83dd";
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await fetch(
+          "https://striveschool-api.herokuapp.com/api/profile/me",
+          {
+            headers: {
+              Authorization: apiKey,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Errore nel recupero del profilo");
+        }
+
+        const profileData = await response.json();
+        setUserId(profileData._id);
+      } catch (error) {
+        console.error("Errore nel recupero del profilo:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   useEffect(() => {
+    if (!userId) return;
+
     const fetchExperiences = async () => {
       try {
         const response = await fetch(
@@ -43,7 +70,7 @@ function Experiences() {
     };
 
     fetchExperiences();
-  }, []);
+  }, [userId]);
 
   const handleChange = (e) => {
     setNewExperience({ ...newExperience, [e.target.name]: e.target.value });
@@ -105,12 +132,6 @@ function Experiences() {
     }
   };
 
-  const formatDate = (dateStr) => {
-    if (!dateStr) return "Presente";
-    const options = { year: "numeric", month: "short" };
-    return new Date(dateStr).toLocaleDateString("it-IT", options);
-  };
-
   const handleDelete = async (expId) => {
     try {
       const response = await fetch(
@@ -162,6 +183,12 @@ function Experiences() {
         error
       );
     }
+  };
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "Presente";
+    const options = { year: "numeric", month: "short" };
+    return new Date(dateStr).toLocaleDateString("it-IT", options);
   };
 
   return (
