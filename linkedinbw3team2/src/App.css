@@ -1,6 +1,8 @@
+body {
+  background-color: rgb(244, 242, 238) !important; 
 
+}
 .bg-light {
-  background-color: white !important; 
   padding: 1rem !important;
   border: 1px solid #dee2e6 !important;
   border-radius: 0.25rem !important;
