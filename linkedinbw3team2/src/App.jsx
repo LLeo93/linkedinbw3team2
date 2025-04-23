@@ -1,8 +1,3 @@
-
-
-
-
-
 import './App.css';
 import Aside from './Aside'
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -15,8 +10,10 @@ function App() {
   return (
     <>
       <Nav />
-      <Aside/>
+      <Aside />
     </>
   );
 }
+export default App;
+
 
