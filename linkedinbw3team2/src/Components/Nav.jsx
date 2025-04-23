@@ -1,13 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './Nav.css';
-
+import 'font-awesome/css/font-awesome.min.css';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const Nav = () => {
   const [showSearchMobile, setShowSearchMobile] = useState(false);
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
   const searchRef = useRef(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { userId } = useParams(); // se sei in /profile/:userId
+  const loggedUser = useSelector((state) => state.user.data);
+  const profileFromUrl = useSelector((state) => state.profiles.current);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/profile/') && userId) {
+      dispatch(fetchProfileById(userId));
+    }
+  }, [location, userId, dispatch]);
+
+  const userToDisplay =
+    location.pathname.startsWith('/profile/') && userId
+      ? profileFromUrl
+      : loggedUser;
 
   const toggleSearch = () => {
     setShowSearchMobile((prev) => !prev);
@@ -130,7 +151,7 @@ const Nav = () => {
           }`}
         >
           {[
-            { icon: '🏠', label: 'Home', action: () => navigate('/') },
+            { icon: '🏠', label: 'Home' },
             { icon: '👥', label: 'My Network' },
             { icon: '💼', label: 'Jobs' },
           ].map((item, idx) => (
@@ -139,8 +160,10 @@ const Nav = () => {
                 className="nav-link d-flex flex-column align-items-center"
                 href="#"
                 onClick={(e) => {
-                  e.preventDefault(); // evitare il refresh della pagina
-                  if (item.action) item.action();
+                  e.preventDefault();
+                  if (item.label === 'Home') {
+                    navigate('/');
+                  }
                 }}
               >
                 <div className="fs-responsive">{item.icon}</div>
@@ -176,17 +199,19 @@ const Nav = () => {
               >
                 <div className="d-flex align-items-center mb-3">
                   <img
-                    src="https://placecats.com/100/100"
+                    src={
+                      userToDisplay?.image || 'https://placekitten.com/100/100'
+                    }
                     alt="Avatar"
                     className="rounded-circle me-2"
                     width="48"
                     height="48"
                   />
                   <div>
-                    <strong>Libanio Leoncini</strong>
-                    <div className="text-muted small">
-                      Magazziniere presso LAIKA
-                    </div>
+                    <strong>
+                      {userToDisplay?.name} {userToDisplay?.surname}
+                    </strong>
+                    <div className="text-muted small">{user?.title}</div>
                   </div>
                 </div>
                 <button className="btn btn-outline-primary btn-sm mt-1 w-100 my-1 rounded-5 p-0">
