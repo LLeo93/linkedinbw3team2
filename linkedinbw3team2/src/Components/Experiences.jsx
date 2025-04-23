@@ -19,7 +19,6 @@ function Experiences() {
 
   const userId = "68077e3dd451810015ce83dd";
 
-  // Fetch all experiences
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
@@ -50,7 +49,6 @@ function Experiences() {
     setNewExperience({ ...newExperience, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission for new or updated experiences
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -107,14 +105,12 @@ function Experiences() {
     }
   };
 
-  // Format date (helper function)
   const formatDate = (dateStr) => {
     if (!dateStr) return "Presente";
     const options = { year: "numeric", month: "short" };
     return new Date(dateStr).toLocaleDateString("it-IT", options);
   };
 
-  // Handle deletion of experience
   const handleDelete = async (expId) => {
     try {
       const response = await fetch(
@@ -137,7 +133,6 @@ function Experiences() {
     }
   };
 
-  // Handle editing experience (load data into form)
   const handleEdit = async (expId) => {
     try {
       const response = await fetch(
