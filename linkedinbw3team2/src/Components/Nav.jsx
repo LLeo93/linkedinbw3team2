@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './Nav.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ const Nav = () => {
   const searchRef = useRef(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.data);
 
   const toggleSearch = () => {
     setShowSearchMobile((prev) => !prev);
@@ -179,17 +181,17 @@ const Nav = () => {
               >
                 <div className="d-flex align-items-center mb-3">
                   <img
-                    src="https://placecats.com/100/100"
+                    src={user?.image}
                     alt="Avatar"
                     className="rounded-circle me-2"
                     width="48"
                     height="48"
                   />
                   <div>
-                    <strong>Libanio Leoncini</strong>
-                    <div className="text-muted small">
-                      Magazziniere presso LAIKA
-                    </div>
+                    <strong>
+                      {user?.name} {user?.surname}
+                    </strong>
+                    <div className="text-muted small">{user?.title}</div>
                   </div>
                 </div>
                 <button className="btn btn-outline-primary btn-sm mt-1 w-100 my-1 rounded-5 p-0">
