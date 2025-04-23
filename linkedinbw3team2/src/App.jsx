@@ -1,19 +1,21 @@
-import './App.css';
-import Aside from './Aside'
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Nav from './Components/Nav';
-import 'font-awesome/css/font-awesome.min.css';
+import Aside from "./Aside";
+import Nav from "./Components/Nav";
+import Footer from "./Components/Footer";
+import ChatWindow from "./Components/ChatWindow";
+import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "font-awesome/css/font-awesome.min.css";
 
 function App() {
   return (
     <>
       <Nav />
       <Aside />
+      <Footer />
+      <ChatWindow />
     </>
   );
 }
 export default App;
-
-
