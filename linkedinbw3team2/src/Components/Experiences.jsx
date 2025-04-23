@@ -12,12 +12,14 @@ function Experiences() {
     description: "",
     area: "",
   });
+  const [editingExpId, setEditingExpId] = useState(null);
 
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA3N2UzZGQ0NTE4MTAwMTVjZTgzZGQiLCJpYXQiOjE3NDUzMjE1MzMsImV4cCI6MTc0NjUzMTEzM30.LTwYloXHYIwB75XWa1MVZmD9zX-NUBQDIp9WSrB1Gmc";
 
   const userId = "68077e3dd451810015ce83dd";
 
+  // Fetch all experiences
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
@@ -48,6 +50,7 @@ function Experiences() {
     setNewExperience({ ...newExperience, [e.target.name]: e.target.value });
   };
 
+  // Handle form submission for new or updated experiences
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,22 +63,33 @@ function Experiences() {
       area: newExperience.area,
     };
 
+    const url = editingExpId
+      ? `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${editingExpId}`
+      : `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
+
+    const method = editingExpId ? "PUT" : "POST";
+
     try {
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: apiKey,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: apiKey,
+        },
+        body: JSON.stringify(payload),
+      });
 
       if (response.ok) {
-        const newExp = await response.json();
-        setExperiences([...experiences, newExp]);
+        const savedExp = await response.json();
+
+        if (editingExpId) {
+          setExperiences((prev) =>
+            prev.map((exp) => (exp._id === editingExpId ? savedExp : exp))
+          );
+        } else {
+          setExperiences([...experiences, savedExp]);
+        }
+
         setNewExperience({
           role: "",
           company: "",
@@ -84,18 +98,75 @@ function Experiences() {
           description: "",
           area: "",
         });
+        setEditingExpId(null);
       } else {
-        console.error("Errore nel salvataggio dell'esperienza");
+        console.error("Errore nel salvataggio/modifica dell'esperienza");
       }
     } catch (error) {
       console.error("Errore:", error);
     }
   };
 
+  // Format date (helper function)
   const formatDate = (dateStr) => {
     if (!dateStr) return "Presente";
     const options = { year: "numeric", month: "short" };
     return new Date(dateStr).toLocaleDateString("it-IT", options);
+  };
+
+  // Handle deletion of experience
+  const handleDelete = async (expId) => {
+    try {
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: apiKey,
+          },
+        }
+      );
+
+      if (response.ok) {
+        setExperiences(experiences.filter((exp) => exp._id !== expId));
+      } else {
+        console.error("Errore durante l'eliminazione dell'esperienza");
+      }
+    } catch (error) {
+      console.error("Errore:", error);
+    }
+  };
+
+  // Handle editing experience (load data into form)
+  const handleEdit = async (expId) => {
+    try {
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`,
+        {
+          headers: {
+            Authorization: apiKey,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setNewExperience({
+          role: data.role,
+          company: data.company,
+          startDate: data.startDate?.split("T")[0],
+          endDate: data.endDate?.split("T")[0] || "",
+          description: data.description,
+          area: data.area,
+        });
+        setEditingExpId(expId);
+      }
+    } catch (error) {
+      console.error(
+        "Errore durante il recupero dell'esperienza da modificare:",
+        error
+      );
+    }
   };
 
   return (
@@ -110,7 +181,10 @@ function Experiences() {
         <Row className='align-items-top mb-3' key={exp._id}>
           <Col xs={1}>
             <img
-              src={exp.image || "https://via.placeholder.com/50"}
+              src={
+                exp.image ||
+                "https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png"
+              }
               alt={`Logo ${exp.company}`}
               height={50}
               className='p-0 m-0'
@@ -133,17 +207,50 @@ function Experiences() {
             <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
               {exp.description}
             </p>
+            <button
+              className='btn btn-warning btn-sm mt-2 me-2'
+              onClick={() => handleEdit(exp._id)}
+            >
+              Modifica
+            </button>
+            <button
+              className='btn btn-danger btn-sm mt-2'
+              onClick={() => handleDelete(exp._id)}
+            >
+              Elimina
+            </button>
           </Col>
         </Row>
       ))}
+
       <Row className='mb-4'>
         <Col>
-          <h4>Aggiungi Esperienza</h4>
+          <h4>
+            {editingExpId ? "Modifica Esperienza" : "Aggiungi Esperienza"}
+          </h4>
           <ExpForm
             experience={newExperience}
             onChange={handleChange}
             onSubmit={handleSubmit}
           />
+          {editingExpId && (
+            <button
+              className='btn btn-secondary btn-sm mt-2'
+              onClick={() => {
+                setEditingExpId(null);
+                setNewExperience({
+                  role: "",
+                  company: "",
+                  startDate: "",
+                  endDate: "",
+                  description: "",
+                  area: "",
+                });
+              }}
+            >
+              Annulla modifica
+            </button>
+          )}
         </Col>
       </Row>
     </Container>
