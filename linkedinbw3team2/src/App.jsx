@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
+import Aside from './Aside'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
-  return <></>;
+  return <>
+  <Aside/>
+  </>;
 }
 
 export default App;
