@@ -1,3 +1,4 @@
+
 .bg-light {
   background-color: white !important; 
   padding: 1rem !important;
@@ -10,18 +11,9 @@
   background-color: white !important; 
   border: 1px solid lightgray !important;
   color: black !important;
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
+
 
 .hr-light-gray {
   border: 1px solid lightgray !important; 
