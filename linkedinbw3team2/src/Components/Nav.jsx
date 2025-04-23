@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Nav.css';
+import 'font-awesome/css/font-awesome.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const Nav = () => {
   const [showSearchMobile, setShowSearchMobile] = useState(false);
@@ -130,7 +131,7 @@ const Nav = () => {
           }`}
         >
           {[
-            { icon: '🏠', label: 'Home', action: () => navigate('/') },
+            { icon: '🏠', label: 'Home' },
             { icon: '👥', label: 'My Network' },
             { icon: '💼', label: 'Jobs' },
           ].map((item, idx) => (
@@ -139,8 +140,10 @@ const Nav = () => {
                 className="nav-link d-flex flex-column align-items-center"
                 href="#"
                 onClick={(e) => {
-                  e.preventDefault(); // evitare il refresh della pagina
-                  if (item.action) item.action();
+                  e.preventDefault();
+                  if (item.label === 'Home') {
+                    navigate('/');
+                  }
                 }}
               >
                 <div className="fs-responsive">{item.icon}</div>
