@@ -10,7 +10,7 @@ const ChatWindow = () => {
       style={{ zIndex: 9999, width: "280px" }}
     >
       <Card className="rounded-4 border-0">
-        <Card.Header className="d-flex align-items-center justify-content-between bg-white rounded-top-4 py-1 ps-1 pe-2">
+        <Card.Header className="d-flex align-items-center justify-content-between bg-white py-2 px-2">
           <div className="d-flex align-items-center">
             <div className="me-2 position-relative">
               <div
