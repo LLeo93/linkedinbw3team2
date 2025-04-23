@@ -1,10 +1,18 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
-import Image from "react-bootstrap/Image";
+import React, { useEffect } from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfiles } from "./reducers/profilesSlice";
+import { Link } from "react-router-dom";
 import Experiences from "./Components/Experiences";
 
 function Aside() {
+  const dispatch = useDispatch();
+  const { list: profiles, loading } = useSelector((state) => state.profiles);
+
+  useEffect(() => {
+    dispatch(fetchProfiles());
+  }, [dispatch]);
+
   return (
     <Container>
       <Row>
@@ -12,12 +20,12 @@ function Aside() {
           <Experiences />
         </Col>
         <Col lg={4}>
-          <aside className='bg-light p-3 border rounded'>
-            <div className='box1'>
+          <aside className="bg-light p-3 border rounded">
+            <div className="box1">
               <h2>
                 Lingua del profilo{" "}
                 <a
-                  href='/edit-language'
+                  href="/edit-language"
                   style={{
                     marginLeft: "0.5em",
                     textDecoration: "none",
@@ -25,7 +33,7 @@ function Aside() {
                   }}
                 >
                   <i
-                    className='bi bi-pencil-fill'
+                    className="bi bi-pencil-fill"
                     style={{
                       fontSize: "0.8em",
                       color: "gray",
@@ -35,11 +43,11 @@ function Aside() {
                 </a>
               </h2>
               <p>italiano</p>
-              <hr className='hr-light-gray' />
+              <hr className="hr-light-gray" />
               <h2>
                 Profilo pubblico e URL
                 <a
-                  href='/edit-language'
+                  href="/edit-language"
                   style={{
                     marginLeft: "0.5em",
                     textDecoration: "none",
@@ -48,7 +56,7 @@ function Aside() {
                   }}
                 >
                   <i
-                    className='bi bi-pencil-fill'
+                    className="bi bi-pencil-fill"
                     style={{
                       fontSize: "0.8em",
                       color: "gray",
@@ -59,158 +67,45 @@ function Aside() {
               </h2>
               <p>Qui ci va il link</p>
             </div>
-            {/* secondo box */}
-            <div className='box2'>
+
+            <div className="box2">
               <h2>Profili seguiti</h2>
-              <Card className='mb-2 card-bottom-border'>
-                <Row className='g-0 align-items-center'>
-                  <Col xs={12} lg={3}>
-                    <i
-                      className='bi bi-person-circle'
-                      style={{
-                        fontSize: "2em",
-                        color: "black",
-                        paddingLeft: "1em",
-                      }}
-                    ></i>
-                  </Col>
-                  <Col xs={12} lg={9}>
-                    <Card.Body className='p-2'>
-                      <Card.Title className='mb-0 fw-bold'>
-                        Antonio Barone
-                      </Card.Title>
-                      <Card.Text className='small text-muted mb-0'>
-                        @handle1
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-              {/* secondo box */}
-              <Card className='mb-2 card-bottom-border'>
-                <Row className='g-0 align-items-center'>
-                  <Col xs={12} lg={3}>
-                    <i
-                      className='bi bi-person-circle'
-                      style={{
-                        fontSize: "2em",
-                        color: "black",
-                        paddingLeft: "1em",
-                      }}
-                    ></i>
-                  </Col>
-                  <Col xs={12} lg={9}>
-                    <Card.Body className='p-2'>
-                      <Card.Title className='mb-0 fw-bold'>
-                        Silvia Gasparini
-                      </Card.Title>
-                      <Card.Text className='small text-muted mb-0'>
-                        @handle1
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-              {/* secondo box */}
-              <Card className='mb-2 card-bottom-border'>
-                <Row className='g-0 align-items-center'>
-                  <Col xs={12} lg={3}>
-                    <i
-                      className='bi bi-person-circle'
-                      style={{
-                        fontSize: "2em",
-                        color: "black",
-                        paddingLeft: "1em",
-                      }}
-                    ></i>
-                  </Col>
-                  <Col xs={12} lg={9}>
-                    <Card.Body className='p-2'>
-                      <Card.Title className='mb-0 fw-bold'>
-                        Lucrezia Martinelli
-                      </Card.Title>
-                      <Card.Text className='small text-muted mb-0'>
-                        @handle1
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-              {/* secondo box */}
-              <Card className='mb-2 card-bottom-border'>
-                <Row className='g-0 align-items-center'>
-                  <Col xs={12} lg={3}>
-                    <i
-                      className='bi bi-person-circle'
-                      style={{
-                        fontSize: "2em",
-                        color: "black",
-                        paddingLeft: "1em",
-                      }}
-                    ></i>
-                  </Col>
-                  <Col xs={12} lg={9}>
-                    <Card.Body className='p-2'>
-                      <Card.Title className='mb-0 fw-bold'>
-                        Libanio Leoncini
-                      </Card.Title>
-                      <Card.Text className='small text-muted mb-0'>
-                        @handle1
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-              {/* secondo box */}
-              <Card className='mb-2 card-bottom-border'>
-                <Row className='g-0 align-items-center'>
-                  <Col xs={12} lg={3}>
-                    <i
-                      className='bi bi-person-circle'
-                      style={{
-                        fontSize: "2em",
-                        color: "black",
-                        paddingLeft: "1em",
-                      }}
-                    ></i>
-                  </Col>
-                  <Col xs={12} lg={9}>
-                    <Card.Body className='p-2'>
-                      <Card.Title className='mb-0 fw-bold'>
-                        LeonardNicusor Dautaru
-                      </Card.Title>
-                      <Card.Text className='small text-muted mb-0'>
-                        @handle1
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
-              {/* secondo box */}
-              <Card className='mb-2 '>
-                <Row className='g-0 align-items-center'>
-                  <Col xs={12} lg={3}>
-                    <i
-                      className='bi bi-person-circle'
-                      style={{
-                        fontSize: "2em",
-                        color: "black",
-                        paddingLeft: "1em",
-                      }}
-                    ></i>
-                  </Col>
-                  <Col xs={12} lg={9}>
-                    <Card.Body className='p-2'>
-                      <Card.Title className='mb-0 fw-bold'>
-                        Riccardo Sangermano
-                      </Card.Title>
-                      <Card.Text className='small text-muted mb-0'>
-                        @handle1
-                      </Card.Text>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Card>
+
+              {loading && <p>Caricamento...</p>}
+
+              {!loading &&
+                profiles.slice(0, 6).map((profile) => (
+                  <Link
+                    key={profile._id}
+                    to={`/profile/${profile._id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Card className="mb-2 card-bottom-border">
+                      <Row className="g-0 align-items-center">
+                        <Col xs={12} lg={3}>
+                          <img
+                            src={profile.image}
+                            alt={profile.name}
+                            className="rounded-circle"
+                            width="40"
+                            height="40"
+                            style={{ objectFit: "cover", paddingLeft: "1em" }}
+                          />
+                        </Col>
+                        <Col xs={12} lg={9}>
+                          <Card.Body className="p-2">
+                            <Card.Title className="mb-0 fw-bold">
+                              {profile.name} {profile.surname}
+                            </Card.Title>
+                            <Card.Text className="small text-muted mb-0">
+                              @{profile.username}
+                            </Card.Text>
+                          </Card.Body>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Link>
+                ))}
             </div>
           </aside>
         </Col>
