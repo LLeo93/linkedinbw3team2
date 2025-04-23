@@ -192,7 +192,7 @@ const Nav = () => {
                   <div className="fw-bold text-muted small mb-1">Account</div>
                   <a
                     href="#"
-                    className="dropdown-item px-0 py-1 text-decoration-none"
+                    className="dropdown-item px-0 py-1 text-decoration-none premium "
                   >
                     Prova Premium
                   </a>
@@ -289,13 +289,20 @@ const Nav = () => {
               className="dropdown-item premium-link d-none d-lg-block"
               href="#"
             >
-              <small className="d-none d-lg-block">Prova Premium per 0€</small>
+              <small className="d-none d-lg-block premium">
+                Prova Premium per 0€
+              </small>
             </a>
           </li>
         </ul>
 
         {/* Tre puntini - solo mobile */}
-        <div className={`d-lg-none ms-2 ${showSearchMobile ? 'd-none' : ''}`}>
+        <div
+          className={`d-lg-none ms-2 position-relative ${
+            showSearchMobile ? 'd-none' : ''
+          }`}
+          ref={dropdownRef}
+        >
           <button
             className="btn p-0"
             onClick={toggleDropdownMenu}
@@ -303,67 +310,75 @@ const Nav = () => {
           >
             <i className="fa fa-ellipsis-h"></i>
           </button>
-        </div>
 
-        {/* Dropdown Mobile */}
-        {showDropdownMenu && (
-          <div
-            className="dropdown-menu dropdown-menu-end d-lg-none show"
-            ref={dropdownRef}
-          >
-            <ul className="list-unstyled p-0">
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">🙍‍♂️</div>
-                  <small>Me</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      {[0, 7, 14].map((y) =>
-                        [0, 7, 14].map((x, i) => (
-                          <rect
-                            key={`${x}-${y}-${i}`}
-                            x={x + 1}
-                            y={y + 1}
-                            width="5"
-                            height="5"
-                          />
-                        ))
-                      )}
-                    </svg>
-                  </div>
-                  <small>Per le aziende</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <small>Prova Premium per 0€</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">💬</div>
-                  <small>Messaggi</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">🔔</div>
-                  <small>Notifiche</small>
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
+          {showDropdownMenu && (
+            <div
+              className="dropdown-menu show"
+              style={{
+                position: 'absolute',
+                top: '100%',
+                right: '10px',
+                zIndex: 999,
+                minWidth: '200px',
+                borderRadius: '10px',
+                boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                backgroundColor: 'white',
+              }}
+            >
+              <ul className="list-unstyled p-0">
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">🙍‍♂️</div>
+                    <small>Me</small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        {[0, 7, 14].map((y) =>
+                          [0, 7, 14].map((x, i) => (
+                            <rect
+                              key={`${x}-${y}-${i}`}
+                              x={x + 1}
+                              y={y + 1}
+                              width="5"
+                              height="5"
+                            />
+                          ))
+                        )}
+                      </svg>
+                    </div>
+                    <small>Per le aziende</small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <small className="premium">Prova Premium </small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">💬</div>
+                    <small>Messaggi</small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">🔔</div>
+                    <small>Notifiche</small>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
