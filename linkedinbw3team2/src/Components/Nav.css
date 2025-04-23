@@ -17,6 +17,9 @@
 .premium-link:hover small {
   color: #a2893c;
 }
+.premium {
+  color: #a2893c !important;
+}
 
 /* Hover sui nav-link */
 .navbar-nav .nav-link {
@@ -98,5 +101,29 @@
 @media (min-width: 992px) {
   .fs-responsive {
     font-size: 1.75rem;
+  }
+}
+.dropdown-menu.show {
+  position: absolute !important;
+  top: 100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 999 !important;
+  min-width: 200px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 0.5rem !important;
+}
+.dropdown-menu.show {
+  animation: fadeSlide 0.2s ease-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

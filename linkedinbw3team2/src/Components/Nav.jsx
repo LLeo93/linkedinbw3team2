@@ -6,7 +6,7 @@ const Nav = () => {
   const [showSearchMobile, setShowSearchMobile] = useState(false);
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
   const searchRef = useRef(null);
-  const dropdownRef = useRef(null); // Riferimento per il menu dei tre puntini
+  const dropdownRef = useRef(null);
 
   const toggleSearch = () => {
     setShowSearchMobile((prev) => !prev);
@@ -55,7 +55,7 @@ const Nav = () => {
   return (
     <nav className="navbar navbar-light bg-white px-3 shadow-sm sticky-top">
       <div className="container-fluid d-flex flex-nowrap align-items-center">
-        {/* Logo + Search Desktop */}
+        {/* Logo + Search */}
         <div className="d-flex align-items-center me-3">
           <a className="navbar-brand d-flex align-items-center me-2" href="#">
             <img
@@ -66,7 +66,6 @@ const Nav = () => {
             />
           </a>
 
-          {/* Desktop Search always visible */}
           <div className="d-none d-lg-block" ref={searchRef}>
             <form className="search-field">
               <div className="position-relative">
@@ -90,7 +89,7 @@ const Nav = () => {
           </div>
         </div>
 
-        {/* Search Icon Mobile */}
+        {/* Mobile Search Icon */}
         <div className="d-lg-none me-2">
           {!showSearchMobile && (
             <button className="btn" onClick={toggleSearch}>
@@ -125,7 +124,7 @@ const Nav = () => {
 
         {/* Nav Items */}
         <ul
-          className={`navbar-nav d-flex align-items-center flex-row ms-auto gap-3 mb-0 flex-nowrap overflow-auto ${
+          className={`navbar-nav d-flex align-items-center flex-row ms-auto gap-3 mb-0 flex-nowrap  ${
             showSearchMobile ? 'd-none' : ''
           }`}
         >
@@ -145,15 +144,96 @@ const Nav = () => {
             </li>
           ))}
 
-          {/* Profilo */}
-          <li className="d-none d-lg-block nav-item text-center">
-            <a
-              className="nav-link d-flex flex-column align-items-center"
-              href="#"
+          {/* "Me" dropdown */}
+          <li
+            className="d-none d-lg-block nav-item dropdown position-relative"
+            ref={dropdownRef}
+          >
+            <button
+              className="nav-link dropdown-toggle d-flex flex-column align-items-center btn"
+              onClick={toggleDropdownMenu}
+              aria-expanded={showDropdownMenu ? 'true' : 'false'}
             >
               <div className="fs-responsive border-end border-1">🙍‍♂️</div>
               <small>Me</small>
-            </a>
+            </button>
+            {showDropdownMenu && (
+              <div
+                className="dropdown-menu show p-3"
+                style={{
+                  minWidth: '300px',
+                  right: 0,
+                  left: 'auto',
+                  zIndex: 999,
+                  boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                  borderRadius: '10px',
+                }}
+              >
+                <div className="d-flex align-items-center mb-3">
+                  <img
+                    src="https://placecats.com/100/100"
+                    alt="Avatar"
+                    className="rounded-circle me-2"
+                    width="48"
+                    height="48"
+                  />
+                  <div>
+                    <strong>Libanio Leoncini</strong>
+                    <div className="text-muted small">
+                      Magazziniere presso LAIKA
+                    </div>
+                  </div>
+                </div>
+                <button className="btn btn-outline-primary btn-sm mt-1 w-100 my-1 rounded-5 p-0">
+                  Visualizza profilo
+                </button>
+
+                <div className="mb-2">
+                  <div className="fw-bold text-muted small mb-1">Account</div>
+                  <a
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none premium "
+                  >
+                    Prova Premium
+                  </a>
+                  <a
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
+                  >
+                    Impostazioni e privacy
+                  </a>
+                  <a
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
+                  >
+                    Guida
+                  </a>
+                  <a
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
+                  >
+                    Lingua
+                  </a>
+                </div>
+
+                <div>
+                  <div className="fw-bold text-muted small mb-1">Gestisci</div>
+                  <a
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
+                  >
+                    Post e attività
+                  </a>
+
+                  <a
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none text-danger"
+                  >
+                    Esci
+                  </a>
+                </div>
+              </div>
+            )}
           </li>
 
           {/* Aziende */}
@@ -209,13 +289,20 @@ const Nav = () => {
               className="dropdown-item premium-link d-none d-lg-block"
               href="#"
             >
-              <small className="d-none d-lg-block">Prova Premium per 0€</small>
+              <small className="d-none d-lg-block premium">
+                Prova Premium per 0€
+              </small>
             </a>
           </li>
         </ul>
 
-        {/* Tre puntini - SEMPRE visibile anche se showSearchMobile è true */}
-        <div className={`d-lg-none ms-2 ${showSearchMobile ? 'd-none' : ''}`}>
+        {/* Tre puntini - solo mobile */}
+        <div
+          className={`d-lg-none ms-2 position-relative ${
+            showSearchMobile ? 'd-none' : ''
+          }`}
+          ref={dropdownRef}
+        >
           <button
             className="btn p-0"
             onClick={toggleDropdownMenu}
@@ -223,67 +310,75 @@ const Nav = () => {
           >
             <i className="fa fa-ellipsis-h"></i>
           </button>
-        </div>
 
-        {/* Mobile Dropdown */}
-        {showDropdownMenu && (
-          <div
-            className="dropdown-menu dropdown-menu-end d-lg-none show"
-            ref={dropdownRef}
-          >
-            <ul className="list-unstyled p-0">
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">🙍‍♂️</div>
-                  <small>Me</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      {[0, 7, 14].map((y) =>
-                        [0, 7, 14].map((x, i) => (
-                          <rect
-                            key={`${x}-${y}-${i}`}
-                            x={x + 1}
-                            y={y + 1}
-                            width="5"
-                            height="5"
-                          />
-                        ))
-                      )}
-                    </svg>
-                  </div>
-                  <small>Per le aziende</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <small>Prova Premium per 0€</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">💬</div>
-                  <small>Messaggi</small>
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  <div className="fs-responsive">🔔</div>
-                  <small>Notifiche</small>
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
+          {showDropdownMenu && (
+            <div
+              className="dropdown-menu show"
+              style={{
+                position: 'absolute',
+                top: '100%',
+                right: '10px',
+                zIndex: 999,
+                minWidth: '200px',
+                borderRadius: '10px',
+                boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                backgroundColor: 'white',
+              }}
+            >
+              <ul className="list-unstyled p-0">
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">🙍‍♂️</div>
+                    <small>Me</small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        {[0, 7, 14].map((y) =>
+                          [0, 7, 14].map((x, i) => (
+                            <rect
+                              key={`${x}-${y}-${i}`}
+                              x={x + 1}
+                              y={y + 1}
+                              width="5"
+                              height="5"
+                            />
+                          ))
+                        )}
+                      </svg>
+                    </div>
+                    <small>Per le aziende</small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <small className="premium">Prova Premium </small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">💬</div>
+                    <small>Messaggi</small>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">🔔</div>
+                    <small>Notifiche</small>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
