@@ -40,16 +40,21 @@ function ProfileHeader() {
             <p className="text-muted mb-1">{profile.title || "--"}</p>
             <p className="text-secondary small">{profile.area}</p>
             <div className="d-flex flex-wrap gap-2 mt-3">
-              <Button variant="primary" size="sm">
+              <Button variant="primary" size="sm" className="rounded-pill px-3">
                 Disponibile per
               </Button>
-              <Button variant="outline-primary" size="sm">
-                Aggiungi sezione
-              </Button>
-              <Button variant="outline-primary" size="sm">
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="rounded-pill px-3"
+              >
                 Migliora profilo
               </Button>
-              <Button variant="light" size="sm">
+              <Button
+                variant="light"
+                size="sm"
+                className="rounded-pill px-3 border border-secondary"
+              >
                 Risorse
               </Button>
             </div>
