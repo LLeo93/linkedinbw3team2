@@ -1,3 +1,4 @@
+ aside
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import Aside from './Aside'
@@ -7,6 +8,4 @@ function App() {
   return <>
   <Aside/>
   </>;
-}
 
-export default App;
