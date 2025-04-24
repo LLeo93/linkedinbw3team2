@@ -219,16 +219,19 @@ function Experiences() {
   };
 
   return (
-    <Container className="border rounded-3 m-3 p-3">
-      <Row className="mb-3">
+    <Container className='border rounded-3 p-3 bg-light'>
+      <Row className='mb-3'>
         <Col>
           <h4>Esperienze esistenti</h4>
         </Col>
       </Row>
 
       {experiences.map((exp) => (
-        <Row className="align-items-top mb-3" key={exp._id}>
-          <Col xs={1}>
+        <Row
+          className='align-items-top mb-3 flex-column flex-md-row'
+          key={exp._id}
+        >
+          <Col xs={12} md={1} className='mb-2 mb-md-0'>
             <img
               src={
                 exp.image ||
@@ -236,32 +239,32 @@ function Experiences() {
               }
               alt={`Logo ${exp.company}`}
               height={50}
-              className="p-0 m-0"
+              className='p-0 m-0'
             />
           </Col>
-          <Col>
-            <p className="p-0 m-0 fw-bold" style={{ fontSize: "0.9em" }}>
+          <Col xs={12} md={11}>
+            <p className='p-0 m-0 fw-bold' style={{ fontSize: "0.9em" }}>
               {exp.role}
             </p>
-            <p className="p-0 m-0" style={{ fontSize: "0.8em" }}>
+            <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
               {exp.company}
             </p>
-            <p className="p-0 m-0 text-secondary" style={{ fontSize: "0.8em" }}>
+            <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
               {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
             </p>
-            <p className="p-0 m-0 text-secondary" style={{ fontSize: "0.8em" }}>
+            <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
               {exp.area}
             </p>
             <br />
-            <p className="p-0 m-0" style={{ fontSize: "0.8em" }}>
+            <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
               {exp.description}
             </p>
-            <div className="d-flex flex-wrap gap-2 mt-2">
-              <label className="btn btn-outline-secondary btn-sm">
+            <div className='d-flex flex-wrap gap-2 mt-2'>
+              <label className='btn btn-outline-secondary btn-sm'>
                 Cambia immagine
                 <input
-                  type="file"
-                  accept="image/*"
+                  type='file'
+                  accept='image/*'
                   onChange={(e) =>
                     handleImageUpload(exp._id, e.target.files[0])
                   }
@@ -269,13 +272,13 @@ function Experiences() {
                 />
               </label>
               <button
-                className="btn btn-primary btn-sm"
+                className='btn btn-primary btn-sm'
                 onClick={() => handleEdit(exp._id)}
               >
                 Modifica
               </button>
               <button
-                className="btn btn-danger btn-sm"
+                className='btn btn-danger btn-sm'
                 onClick={() => handleDelete(exp._id)}
               >
                 Elimina
@@ -285,7 +288,7 @@ function Experiences() {
         </Row>
       ))}
 
-      <Row className="mb-4">
+      <Row className='mb-4'>
         <Col>
           <h4>
             {editingExpId ? "Modifica Esperienza" : "Aggiungi Esperienza"}
@@ -297,7 +300,7 @@ function Experiences() {
           />
           {editingExpId && (
             <button
-              className="btn btn-secondary btn-sm mt-2"
+              className='btn btn-secondary btn-sm mt-2'
               onClick={() => {
                 setEditingExpId(null);
                 setNewExperience({
