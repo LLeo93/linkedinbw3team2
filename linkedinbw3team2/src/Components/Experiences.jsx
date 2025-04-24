@@ -16,7 +16,7 @@ function Experiences() {
   const [editingExpId, setEditingExpId] = useState(null);
 
   const apiKey =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA3N2UzZGQ0NTE4MTAwMTVjZTgzZGQiLCJpYXQiOjE3NDUzMjE1MzMsImV4cCI6MTc0NjUzMTEzM30.LTwYloXHYIwB75XWa1MVZmD9zX-NUBQDIp9WSrB1Gmc";
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODA3NDc3M2Q0NTE4MTAwMTVjZTgzY2UiLCJpYXQiOjE3NDUzMDc1MDcsImV4cCI6MTc0NjUxNzEwN30.u0YJhaM-DckuqeyqScIIgbQsaBB7E5H9SBDxS4Wj5mE";
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -192,15 +192,15 @@ function Experiences() {
   };
 
   return (
-    <Container className='border rounded-3 m-3 p-3'>
-      <Row className='mb-3'>
+    <Container className="border rounded-3 m-3 p-3">
+      <Row className="mb-3">
         <Col>
           <h4>Esperienze esistenti</h4>
         </Col>
       </Row>
 
       {experiences.map((exp) => (
-        <Row className='align-items-top mb-3' key={exp._id}>
+        <Row className="align-items-top mb-3" key={exp._id}>
           <Col xs={1}>
             <img
               src={
@@ -209,34 +209,34 @@ function Experiences() {
               }
               alt={`Logo ${exp.company}`}
               height={50}
-              className='p-0 m-0'
+              className="p-0 m-0"
             />
           </Col>
           <Col>
-            <p className='p-0 m-0 fw-bold' style={{ fontSize: "0.9em" }}>
+            <p className="p-0 m-0 fw-bold" style={{ fontSize: "0.9em" }}>
               {exp.role}
             </p>
-            <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
+            <p className="p-0 m-0" style={{ fontSize: "0.8em" }}>
               {exp.company}
             </p>
-            <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
+            <p className="p-0 m-0 text-secondary" style={{ fontSize: "0.8em" }}>
               {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
             </p>
-            <p className='p-0 m-0 text-secondary' style={{ fontSize: "0.8em" }}>
+            <p className="p-0 m-0 text-secondary" style={{ fontSize: "0.8em" }}>
               {exp.area}
             </p>
             <br />
-            <p className='p-0 m-0' style={{ fontSize: "0.8em" }}>
+            <p className="p-0 m-0" style={{ fontSize: "0.8em" }}>
               {exp.description}
             </p>
             <button
-              className='btn btn-warning btn-sm mt-2 me-2'
+              className="btn btn-primary btn-sm mt-2 me-2"
               onClick={() => handleEdit(exp._id)}
             >
               Modifica
             </button>
             <button
-              className='btn btn-danger btn-sm mt-2'
+              className="btn btn-danger btn-sm mt-2"
               onClick={() => handleDelete(exp._id)}
             >
               Elimina
@@ -245,7 +245,7 @@ function Experiences() {
         </Row>
       ))}
 
-      <Row className='mb-4'>
+      <Row className="mb-4">
         <Col>
           <h4>
             {editingExpId ? "Modifica Esperienza" : "Aggiungi Esperienza"}
@@ -257,7 +257,7 @@ function Experiences() {
           />
           {editingExpId && (
             <button
-              className='btn btn-secondary btn-sm mt-2'
+              className="btn btn-secondary btn-sm mt-2"
               onClick={() => {
                 setEditingExpId(null);
                 setNewExperience({
