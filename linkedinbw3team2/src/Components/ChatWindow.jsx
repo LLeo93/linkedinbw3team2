@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Card, Button, InputGroup, Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const ChatWindow = () => {
   const [open, setOpen] = useState(false);
+  const profile = useSelector((state) => state.user.data);
 
   return (
     <div
@@ -13,14 +15,23 @@ const ChatWindow = () => {
         <Card.Header className="d-flex align-items-center justify-content-between bg-white py-2 px-2">
           <div className="d-flex align-items-center">
             <div className="me-2 position-relative">
-              <div
-                className="rounded-circle ms-0"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  backgroundColor: "#bfc5ca",
-                }}
-              ></div>
+              {profile?.image ? (
+                <img
+                  src={profile.image}
+                  alt="Avatar"
+                  className="rounded-circle"
+                  style={{ width: "24px", height: "24px", objectFit: "cover" }}
+                />
+              ) : (
+                <div
+                  className="rounded-circle ms-0"
+                  style={{
+                    width: "24px",
+                    height: "24px",
+                    backgroundColor: "#bfc5ca",
+                  }}
+                ></div>
+              )}
               <div
                 className="bg-success border border-white rounded-circle position-absolute"
                 style={{
