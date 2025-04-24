@@ -21,7 +21,7 @@ function Aside() {
           <Experiences />
         </Col>
         <Col lg={4}>
-          <aside className="bg-light p-3 border rounded">
+          <aside className="bg-light p-3 border rounded mt-4">
             <div className="box1">
               <h2>
                 Lingua del profilo{" "}
