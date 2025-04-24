@@ -72,6 +72,33 @@ function Experiences() {
     fetchExperiences();
   }, [userId]);
 
+  const handleImageUpload = async (expId, file) => {
+    const formData = new FormData();
+    formData.append("experience", file);
+
+    try {
+      const response = await fetch(
+        `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: apiKey,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) throw new Error("Errore nel caricamento dell'immagine");
+
+      const updated = await response.json();
+      setExperiences((prev) =>
+        prev.map((exp) => (exp._id === updated._id ? updated : exp))
+      );
+    } catch (error) {
+      console.error("Errore caricamento immagine esperienza:", error);
+    }
+  };
+
   const handleChange = (e) => {
     setNewExperience({ ...newExperience, [e.target.name]: e.target.value });
   };
@@ -229,18 +256,31 @@ function Experiences() {
             <p className="p-0 m-0" style={{ fontSize: "0.8em" }}>
               {exp.description}
             </p>
-            <button
-              className="btn btn-primary btn-sm mt-2 me-2"
-              onClick={() => handleEdit(exp._id)}
-            >
-              Modifica
-            </button>
-            <button
-              className="btn btn-danger btn-sm mt-2"
-              onClick={() => handleDelete(exp._id)}
-            >
-              Elimina
-            </button>
+            <div className="d-flex flex-wrap gap-2 mt-2">
+              <label className="btn btn-outline-secondary btn-sm">
+                Cambia immagine
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) =>
+                    handleImageUpload(exp._id, e.target.files[0])
+                  }
+                  hidden
+                />
+              </label>
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={() => handleEdit(exp._id)}
+              >
+                Modifica
+              </button>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => handleDelete(exp._id)}
+              >
+                Elimina
+              </button>
+            </div>
           </Col>
         </Row>
       ))}
