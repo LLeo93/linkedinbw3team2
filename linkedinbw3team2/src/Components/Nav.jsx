@@ -1,11 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import "./Nav.css";
-
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import './Nav.css';
+import {
+  FiHome,
+  FiUsers,
+  FiBriefcase,
+  FiBell,
+  FiMessageSquare,
+  FiGrid,
+} from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const Nav = () => {
   const [showSearchMobile, setShowSearchMobile] = useState(false);
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
@@ -20,13 +27,13 @@ const Nav = () => {
   const profileFromUrl = useSelector((state) => state.profiles.current);
 
   useEffect(() => {
-    if (location.pathname.startsWith("/profile/") && userId) {
+    if (location.pathname.startsWith('/profile/') && userId) {
       dispatch(fetchProfileById(userId));
     }
   }, [location, userId, dispatch]);
 
   const userToDisplay =
-    location.pathname.startsWith("/profile/") && userId
+    location.pathname.startsWith('/profile/') && userId
       ? profileFromUrl
       : loggedUser;
 
@@ -46,13 +53,13 @@ const Nav = () => {
     };
 
     if (showSearchMobile) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showSearchMobile]);
 
@@ -64,46 +71,46 @@ const Nav = () => {
     };
 
     if (showDropdownMenu) {
-      document.addEventListener("mousedown", handleClickOutsideDropdown);
+      document.addEventListener('mousedown', handleClickOutsideDropdown);
     } else {
-      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+      document.removeEventListener('mousedown', handleClickOutsideDropdown);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+      document.removeEventListener('mousedown', handleClickOutsideDropdown);
     };
   }, [showDropdownMenu]);
 
   return (
-    <nav className='navbar navbar-light bg-white px-3 shadow-sm sticky-top'>
-      <div className='container-fluid d-flex flex-nowrap align-items-center'>
+    <nav className="navbar navbar-light bg-white px-3 shadow-sm sticky-top">
+      <div className="container-fluid d-flex flex-nowrap align-items-center">
         {/* Logo + Search */}
-        <div className='d-flex align-items-center me-3'>
-          <a className='navbar-brand d-flex align-items-center me-2' href='#'>
+        <div className="d-flex align-items-center me-3">
+          <a className="navbar-brand d-flex align-items-center me-2" href="#">
             <img
-              src='https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png'
-              alt='Logo'
-              width='34'
-              height='34'
+              src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+              alt="Logo"
+              width="34"
+              height="34"
             />
           </a>
 
-          <div className='d-none d-lg-block' ref={searchRef}>
-            <form className='search-field'>
-              <div className='position-relative'>
+          <div className="d-none d-lg-block" ref={searchRef}>
+            <form className="search-field">
+              <div className="position-relative">
                 <input
-                  className='form-control rounded-pill ps-4'
-                  type='search'
-                  placeholder='Cerca'
-                  style={{ height: "36px" }}
+                  className="form-control rounded-pill ps-4"
+                  type="search"
+                  placeholder="Cerca"
+                  style={{ height: '36px' }}
                 />
                 <i
-                  className='fa fa-search position-absolute'
+                  className="fa fa-search position-absolute"
                   style={{
-                    left: "12px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    color: "#888",
+                    left: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#888',
                   }}
                 ></i>
               </div>
@@ -112,32 +119,32 @@ const Nav = () => {
         </div>
 
         {/* Mobile Search Icon */}
-        <div className='d-lg-none me-2'>
+        <div className="d-lg-none me-2">
           {!showSearchMobile && (
-            <button className='btn' onClick={toggleSearch}>
-              <i className='fa fa-search'></i>
+            <button className="btn" onClick={toggleSearch}>
+              <i className="fa fa-search"></i>
             </button>
           )}
         </div>
 
         {/* Mobile Search Field */}
         {showSearchMobile && (
-          <form className='w-100 my-2 d-lg-none' ref={searchRef}>
-            <div className='position-relative'>
+          <form className="w-100 my-2 d-lg-none" ref={searchRef}>
+            <div className="position-relative">
               <input
-                className='form-control rounded-pill ps-4'
-                type='search'
-                placeholder='Cerca'
+                className="form-control rounded-pill ps-4"
+                type="search"
+                placeholder="Cerca"
                 autoFocus
-                style={{ height: "36px" }}
+                style={{ height: '36px' }}
               />
               <i
-                className='fa fa-search position-absolute'
+                className="fa fa-search position-absolute"
                 style={{
-                  left: "12px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "#888",
+                  left: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: '#888',
                 }}
               ></i>
             </div>
@@ -147,117 +154,126 @@ const Nav = () => {
         {/* Nav Items */}
         <ul
           className={`navbar-nav d-flex align-items-center flex-row ms-auto gap-3 mb-0 flex-nowrap  ${
-            showSearchMobile ? "d-none" : ""
+            showSearchMobile ? 'd-none' : ''
           }`}
         >
           {[
-            { icon: "🏠", label: "Home" },
-            { icon: "👥", label: "My Network" },
-            { icon: "💼", label: "Jobs" },
+            { icon: <FiHome size={20} />, label: 'Home', path: '/' },
+            { icon: <FiUsers size={20} />, label: 'My Network' },
+            { icon: <FiBriefcase size={20} />, label: 'Jobs' },
+            { icon: <FiMessageSquare size={20} />, label: 'Messaging' },
+            { icon: <FiBell size={20} />, label: 'Notifications' },
           ].map((item, idx) => (
-            <li className='nav-item text-center' key={idx}>
+            <li className="nav-item text-center" key={idx}>
               <a
-                className='nav-link d-flex flex-column align-items-center'
-                href='#'
+                className="nav-link d-flex flex-column align-items-center"
+                href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (item.label === "Home") {
-                    navigate("/");
+                  if (item.path) {
+                    navigate(item.path);
                   }
                 }}
               >
-                <div className='fs-responsive'>{item.icon}</div>
-                <small className='d-none d-lg-block'>{item.label}</small>
+                <div className="fs-responsive">{item.icon}</div>
+                <small className="d-none d-lg-block">{item.label}</small>
               </a>
             </li>
           ))}
 
           {/* "Me" dropdown */}
           <li
-            className='d-none d-lg-block nav-item dropdown position-relative'
+            className="d-none d-lg-block nav-item dropdown position-relative"
             ref={dropdownRef}
           >
             <button
-              className='nav-link dropdown-toggle d-flex flex-column align-items-center btn'
+              className="nav-link dropdown-toggle d-flex flex-column align-items-center btn"
               onClick={toggleDropdownMenu}
-              aria-expanded={showDropdownMenu ? "true" : "false"}
+              aria-expanded={showDropdownMenu ? 'true' : 'false'}
             >
-              <div className='fs-responsive border-end border-1'>🙍‍♂️</div>
+              <img
+                src={userToDisplay?.image || 'https://placekitten.com/100/100'}
+                alt="Avatar"
+                className="rounded-circle "
+                width="28"
+                height="28"
+              />
+
               <small>Me</small>
             </button>
             {showDropdownMenu && (
               <div
-                className='dropdown-menu show p-3'
+                className="dropdown-menu show p-3"
                 style={{
-                  minWidth: "300px",
+                  minWidth: '300px',
                   right: 0,
-                  left: "auto",
+                  left: 'auto',
                   zIndex: 999,
-                  boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-                  borderRadius: "10px",
+                  boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                  borderRadius: '10px',
                 }}
               >
-                <div className='d-flex align-items-center mb-3'>
+                <div className="d-flex align-items-center mb-3">
                   <img
                     src={
-                      userToDisplay?.image || "https://placekitten.com/100/100"
+                      userToDisplay?.image || 'https://placekitten.com/100/100'
                     }
-                    alt='Avatar'
-                    className='rounded-circle me-2'
-                    width='48'
-                    height='48'
+                    alt="Avatar"
+                    className="rounded-circle me-2"
+                    width="48"
+                    height="48"
                   />
                   <div>
                     <strong>
                       {userToDisplay?.name} {userToDisplay?.surname}
                     </strong>
-                    <div className='text-muted small'>{user?.title}</div>
+                    <div className="text-muted small">{user?.title}</div>
                   </div>
                 </div>
-                <button className='btn btn-outline-primary btn-sm mt-1 w-100 my-1 rounded-5 p-0'>
+                <button className="btn btn-outline-primary btn-sm mt-1 w-100 my-1 rounded-5 p-0">
                   Visualizza profilo
                 </button>
 
-                <div className='mb-2'>
-                  <div className='fw-bold text-muted small mb-1'>Account</div>
+                <div className="mb-2">
+                  <div className="fw-bold text-muted small mb-1">Account</div>
                   <a
-                    href='#'
-                    className='dropdown-item px-0 py-1 text-decoration-none premium '
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none premium "
                   >
                     Prova Premium
                   </a>
                   <a
-                    href='#'
-                    className='dropdown-item px-0 py-1 text-decoration-none'
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
                   >
                     Impostazioni e privacy
                   </a>
                   <a
-                    href='#'
-                    className='dropdown-item px-0 py-1 text-decoration-none'
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
                   >
                     Guida
                   </a>
                   <a
-                    href='#'
-                    className='dropdown-item px-0 py-1 text-decoration-none'
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
                   >
                     Lingua
                   </a>
                 </div>
 
                 <div>
-                  <div className='fw-bold text-muted small mb-1'>Gestisci</div>
+                  <div className="fw-bold text-muted small mb-1">Gestisci</div>
                   <a
-                    href='#'
-                    className='dropdown-item px-0 py-1 text-decoration-none'
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none"
                   >
                     Post e attività
                   </a>
 
                   <a
-                    href='#'
-                    className='dropdown-item px-0 py-1 text-decoration-none text-danger'
+                    href="#"
+                    className="dropdown-item px-0 py-1 text-decoration-none text-danger"
                   >
                     Esci
                   </a>
@@ -267,22 +283,22 @@ const Nav = () => {
           </li>
 
           {/* Aziende */}
-          <li className='d-none d-lg-block nav-item dropdown'>
+          <li className="d-none d-lg-block nav-item dropdown">
             <a
-              className='nav-link dropdown-toggle d-flex flex-column align-items-center'
-              href='#'
-              id='navbarDropdown'
-              role='button'
-              data-bs-toggle='dropdown'
-              aria-expanded='false'
+              className="nav-link dropdown-toggle d-flex flex-column align-items-center"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
-              <div className='fs-responsive'>
+              <div className="fs-responsive">
                 <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='20'
-                  height='20'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
                 >
                   {[0, 7, 14].map((y) =>
                     [0, 7, 14].map((x, i) => (
@@ -290,8 +306,8 @@ const Nav = () => {
                         key={`${x}-${y}-${i}`}
                         x={x + 1}
                         y={y + 1}
-                        width='5'
-                        height='5'
+                        width="5"
+                        height="5"
                       />
                     ))
                   )}
@@ -299,14 +315,14 @@ const Nav = () => {
               </div>
               <small>Per le aziende</small>
             </a>
-            <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a className='dropdown-item' href='#'>
+                <a className="dropdown-item" href="#">
                   Opzione 1
                 </a>
               </li>
               <li>
-                <a className='dropdown-item' href='#'>
+                <a className="dropdown-item" href="#">
                   Opzione 2
                 </a>
               </li>
@@ -316,10 +332,10 @@ const Nav = () => {
           {/* Premium */}
           <li>
             <a
-              className='dropdown-item premium-link d-none d-lg-block'
-              href='#'
+              className="dropdown-item premium-link d-none d-lg-block"
+              href="#"
             >
-              <small className='d-none d-lg-block premium'>
+              <small className="d-none d-lg-block premium">
                 Prova Premium per 0€
               </small>
             </a>
@@ -329,48 +345,60 @@ const Nav = () => {
         {/* Tre puntini - solo mobile */}
         <div
           className={`d-lg-none ms-2 position-relative ${
-            showSearchMobile ? "d-none" : ""
+            showSearchMobile ? 'd-none' : ''
           }`}
           ref={dropdownRef}
         >
           <button
-            className='btn p-0'
+            className="btn p-0"
             onClick={toggleDropdownMenu}
-            aria-expanded={showDropdownMenu ? "true" : "false"}
+            aria-expanded={showDropdownMenu ? 'true' : 'false'}
           >
-            <i className='fa fa-ellipsis-h'></i>
+            <i className="fa fa-ellipsis-h"></i>
           </button>
 
           {showDropdownMenu && (
             <div
-              className='dropdown-menu show'
+              className="dropdown-menu show"
               style={{
-                position: "absolute",
-                top: "100%",
-                right: "10px",
+                position: 'absolute',
+                top: '100%',
+                right: '10px',
                 zIndex: 999,
-                minWidth: "200px",
-                borderRadius: "10px",
-                boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-                backgroundColor: "white",
+                minWidth: '200px',
+                borderRadius: '10px',
+                boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                backgroundColor: 'white',
               }}
             >
-              <ul className='list-unstyled p-0'>
+              <ul className="list-unstyled p-0">
                 <li>
-                  <a className='dropdown-item' href='#'>
-                    <div className='fs-responsive'>🙍‍♂️</div>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">
+                      {' '}
+                      <img
+                        src={
+                          userToDisplay?.image ||
+                          'https://placekitten.com/100/100'
+                        }
+                        alt="Avatar"
+                        className="rounded-circle "
+                        width="28"
+                        height="28"
+                      />
+                    </div>
                     <small>Me</small>
                   </a>
                 </li>
                 <li>
-                  <a className='dropdown-item' href='#'>
-                    <div className='fs-responsive'>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">
                       <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='20'
-                        height='20'
-                        fill='currentColor'
-                        viewBox='0 0 20 20'
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                       >
                         {[0, 7, 14].map((y) =>
                           [0, 7, 14].map((x, i) => (
@@ -378,8 +406,8 @@ const Nav = () => {
                               key={`${x}-${y}-${i}`}
                               x={x + 1}
                               y={y + 1}
-                              width='5'
-                              height='5'
+                              width="5"
+                              height="5"
                             />
                           ))
                         )}
@@ -389,19 +417,19 @@ const Nav = () => {
                   </a>
                 </li>
                 <li>
-                  <a className='dropdown-item' href='#'>
-                    <small className='premium'>Prova Premium </small>
+                  <a className="dropdown-item" href="#">
+                    <small className="premium">Prova Premium </small>
                   </a>
                 </li>
                 <li>
-                  <a className='dropdown-item' href='#'>
-                    <div className='fs-responsive'>💬</div>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">💬</div>
                     <small>Messaggi</small>
                   </a>
                 </li>
                 <li>
-                  <a className='dropdown-item' href='#'>
-                    <div className='fs-responsive'>🔔</div>
+                  <a className="dropdown-item" href="#">
+                    <div className="fs-responsive">🔔</div>
                     <small>Notifiche</small>
                   </a>
                 </li>
