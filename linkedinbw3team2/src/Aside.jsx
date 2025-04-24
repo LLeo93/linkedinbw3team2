@@ -66,7 +66,7 @@ function Aside() {
                   ></i>
                 </a>
               </h2>
-              <p>Qui ci va il link</p>
+              <p>www.linkedin.com/in/user</p>
             </div>
 
             <div className="box2 mt-4">
